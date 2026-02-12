@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<title>Surpriza për Ty ❤️</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        font-family: Arial, sans-serif;
+        color: white;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .heart {
+        font-size: 100px;
+        animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+
+    button {
+        margin: 10px;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: white;
+        color: #ff4d6d;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: #ffe0e6;
+    }
+
+    .message {
+        margin-top: 20px;
+        font-size: 20px;
+        max-width: 300px;
+    }
+</style>
+</head>
+<body>
+
+<div class="heart">❤️</div>
+<h1>Gëzuar Shën Valentinin!</h1>
+
+<div>
+    <button onclick="showMessage('Unë të dua më shumë se çdo gjë në botë ❤️')">Sa të dua?</button>
+    <button onclick="showMessage('Do të jesh gjithmonë zgjedhja ime.')">A je e imja?</button>
+    <button onclick="showMessage('Po! Dhe do të them po çdo ditë! 💍')">Do martohesh me mua?</button>
+</div>
+
+<div class="message" id="message"></div>
+
+<script>
+function showMessage(text) {
+    document.getElementById("message").innerText = text;
+}
+</script>
+
+</body>
+</html>
