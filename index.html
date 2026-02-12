@@ -2,72 +2,156 @@
 <html lang="sq">
 <head>
 <meta charset="UTF-8">
-<title>Surpriza për Ty ❤️</title>
+<title>Për Lulushkën ❤️</title>
+
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        background: linear-gradient(135deg, #ff758c, #ff7eb3);
-        font-family: Arial, sans-serif;
-        color: white;
-        text-align: center;
-        overflow: hidden;
-    }
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff4e8a, #ff9a9e);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
 
-    .heart {
-        font-size: 100px;
-        animation: pulse 1s infinite;
-    }
+h1 {
+    font-size: 32px;
+}
 
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.2); }
-        100% { transform: scale(1); }
-    }
+.main-heart {
+    font-size: 110px;
+    animation: pulse 1.2s infinite;
+}
 
-    button {
-        margin: 10px;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 25px;
-        font-size: 16px;
-        cursor: pointer;
-        background-color: white;
-        color: #ff4d6d;
-        transition: 0.3s;
-    }
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+    100% { transform: scale(1); }
+}
 
-    button:hover {
-        background-color: #ffe0e6;
-    }
+button {
+    margin: 10px;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: white;
+    color: #ff2e63;
+    transition: 0.3s;
+}
 
-    .message {
-        margin-top: 20px;
-        font-size: 20px;
-        max-width: 300px;
-    }
+button:hover {
+    transform: scale(1.1);
+}
+
+.message {
+    margin-top: 20px;
+    font-size: 22px;
+    max-width: 400px;
+    min-height: 60px;
+}
+
+.falling-heart {
+    position: absolute;
+    top: -10px;
+    font-size: 20px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to { transform: translateY(100vh); }
+}
+
+.explosion {
+    position: absolute;
+    font-size: 30px;
+    animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+}
 </style>
 </head>
+
 <body>
 
-<div class="heart">❤️</div>
-<h1>Gëzuar Shën Valentinin!</h1>
+<div class="main-heart">❤️</div>
+<h1>Lulushka ime e bukur 💕</h1>
+<p>Maiolushka ka diçka për ty...</p>
 
-<div>
-    <button onclick="showMessage('Unë të dua më shumë se çdo gjë në botë ❤️')">Sa të dua?</button>
-    <button onclick="showMessage('Do të jesh gjithmonë zgjedhja ime.')">A je e imja?</button>
-    <button onclick="showMessage('Po! Dhe do të them po çdo ditë! 💍')">Do martohesh me mua?</button>
-</div>
+<button onclick="showMessage('Ti je arsyeja pse buzëqesh çdo ditë ❤️')">Pse të dua?</button>
+<button onclick="showMessage('Sepse ti je ëndrra ime më e bukur.')">Çfarë je për mua?</button>
+
+<br>
+
+<button onclick="playSong()">🎵 Dëgjo këngën tonë</button>
+
+<br><br>
+
+<button id="yesBtn" onclick="finalLove()">Po, të dua 💖</button>
+<button id="noBtn">Jo 🙈</button>
 
 <div class="message" id="message"></div>
 
 <script>
+
+// Mesazhe
 function showMessage(text) {
     document.getElementById("message").innerText = text;
+}
+
+// Butoni Jo që ikën
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", function() {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+// Zemra që bien
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("falling-heart");
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+}
+setInterval(createHeart, 300);
+
+// Butoni Po me animacion
+function finalLove() {
+    document.getElementById("message").innerHTML =
+        "Lulushka 💍<br><br>" +
+        "Maiolushka të do pafundësisht! ❤️";
+
+    for (let i = 0; i < 30; i++) {
+        const explosion = document.createElement("div");
+        explosion.classList.add("explosion");
+        explosion.innerText = "💖";
+        explosion.style.left = Math.random() * 100 + "vw";
+        explosion.style.top = Math.random() * 100 + "vh";
+        document.body.appendChild(explosion);
+
+        setTimeout(() => explosion.remove(), 1000);
+    }
+}
+
+// Hap këngën në YouTube
+function playSong() {
+    window.open("https://www.youtube.com/results?search_query=Alban+Skenderaj+Vetem+Ty", "_blank");
 }
 </script>
 
