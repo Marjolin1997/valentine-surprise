@@ -2,46 +2,61 @@
 <html lang="sq">
 <head>
 <meta charset="UTF-8">
-<title>Lulushka & Maiolushka ❤️🇩🇪</title>
+<title>Lulushka & Maiolushka 💖</title>
 
 <style>
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: black;
+    background: linear-gradient(135deg, #ff9ecf, #ffc1e3, #ffb6d9);
     color: white;
     text-align: center;
     overflow-x: hidden;
 }
 
-/* HERO */
-.hero {
-    height: 100vh;
-    background: url("https://images.unsplash.com/photo-1549921296-3b5f81a4f7d9?auto=format&fit=crop&w=1600&q=80") center/cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+/* Cute puppies anash */
+.side-img {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 120px;
+    opacity: 0.9;
 }
 
-.overlay {
-    background: rgba(0,0,0,0.6);
+.left-dog {
+    left: 10px;
+}
+
+.right-dog {
+    right: 10px;
+}
+
+/* Kartë romantike */
+.card {
+    margin-top: 80px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 25px;
+    width: 80%;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 36px;
 }
 
 button {
     margin: 10px;
-    padding: 12px 22px;
+    padding: 12px 25px;
     border: none;
     border-radius: 30px;
     font-size: 16px;
     cursor: pointer;
-    background-color: white;
+    background: white;
     color: #ff2e63;
     transition: 0.3s;
 }
@@ -51,61 +66,17 @@ button:hover {
 }
 
 .countdown {
-    font-size: 22px;
-    margin-top: 20px;
+    font-size: 20px;
+    margin-top: 15px;
 }
 
 .message {
     margin-top: 20px;
-    font-size: 20px;
-    max-width: 600px;
+    font-size: 18px;
     white-space: pre-line;
-    margin-left: auto;
-    margin-right: auto;
 }
 
-/* Slideshow */
-.slideshow {
-    margin-top: 60px;
-    height: 400px;
-    position: relative;
-}
-
-.slideshow img {
-    width: 80%;
-    max-height: 400px;
-    position: absolute;
-    left: 10%;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-    border-radius: 15px;
-}
-
-/* Map */
-.map-section {
-    margin-top: 80px;
-    position: relative;
-}
-
-.map {
-    width: 80%;
-    border-radius: 15px;
-}
-
-.plane {
-    position: absolute;
-    top: 40%;
-    left: 10%;
-    font-size: 40px;
-    animation: fly 6s linear infinite alternate;
-}
-
-@keyframes fly {
-    from { left: 10%; }
-    to { left: 70%; }
-}
-
-/* Falling hearts */
+/* Zemra që bien */
 .falling-heart {
     position: fixed;
     top: -10px;
@@ -121,32 +92,21 @@ button:hover {
 
 <body>
 
-<div class="hero">
-    <div class="overlay">
-        <h1>Lulushka & Maiolushka ❤️</h1>
-        <p>Numërimi mbrapsht deri në ëndrrën tonë 🇩🇪</p>
-        <div class="countdown" id="countdown"></div>
+<!-- Cute puppies -->
+<img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/dog-2785074_960_720.png" class="side-img left-dog">
+<img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/dog-2785074_960_720.png" class="side-img right-dog">
 
-        <button onclick="showPoem()">📖 Lexo poezinë</button>
-        <button onclick="futureDream()">🇩🇪 Ëndrra jonë</button>
-        <button onclick="playMusic()">🎵 Luaj muzikën</button>
+<div class="card">
+    <h1>Lulushka & Maiolushka 💖</h1>
+    <p>Numërimi mbrapsht deri në ëndrrën tonë 🇩🇪</p>
 
-        <div class="message" id="message"></div>
-    </div>
-</div>
+    <div class="countdown" id="countdown"></div>
 
-<!-- Slideshow -->
-<div class="slideshow">
-    <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1200&q=80" class="slide">
-    <img src="https://images.unsplash.com/photo-1529634897602-2c3fa10e3c5b?auto=format&fit=crop&w=1200&q=80" class="slide">
-    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80" class="slide">
-</div>
+    <button onclick="showPoem()">📖 Lexo poezinë</button>
+    <button onclick="futureDream()">🇩🇪 Ëndrra jonë</button>
+    <button onclick="playMusic()">🎵 Luaj muzikën</button>
 
-<!-- Map -->
-<div class="map-section">
-    <h2>Rruga jonë drejt Frankfurt 🇩🇪</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Europe_blank_map.png" class="map">
-    <div class="plane">✈️</div>
+    <div class="message" id="message"></div>
 </div>
 
 <audio id="bgMusic" loop>
@@ -155,7 +115,7 @@ button:hover {
 
 <script>
 
-/* COUNTDOWN */
+/* Countdown */
 const targetDate = new Date("2026-05-01T00:00:00");
 
 function updateCountdown() {
@@ -175,14 +135,16 @@ setInterval(updateCountdown, 1000);
 /* Poezia */
 function showPoem() {
 const poem = 
-`Lulushka ime e dashur,
+`Lulushka ime 💖
 
-Ti je drita ime në çdo horizont.
-Në çdo qytet, në çdo vend,
-unë dua vetëm dorën tënde.
+Ti je drita ime në çdo mëngjes,
+je ëndrra që më buzëqesh çdo mbrëmje.
+
+Në çdo vend ku shkoj,
+dua vetëm dorën tënde në timen.
 
 Frankfurti mund të jetë fillimi,
-por ti je gjithmonë destinacioni.
+por ti je gjithmonë shtëpia ime.
 
 Maiolushka ❤️`;
 
@@ -194,7 +156,7 @@ document.getElementById("message").innerText =
 "Një ditë do ecim bashkë në Frankfurt 🇩🇪\n" +
 "Do ndërtojmë jetën tonë me dashuri,\n" +
 "dhe çdo sakrificë do ketë kuptim,\n" +
-"sepse jemi bashkë ❤️";
+"sepse jemi bashkë përgjithmonë 💖";
 }
 
 function typeWriter(text) {
@@ -212,28 +174,16 @@ function typing() {
 typing();
 }
 
-/* Slideshow */
-let slides = document.querySelectorAll(".slide");
-let current = 0;
-
-function showSlide() {
-slides.forEach(slide => slide.style.opacity = 0);
-slides[current].style.opacity = 1;
-current = (current + 1) % slides.length;
-}
-setInterval(showSlide, 4000);
-showSlide();
-
-/* Music */
+/* Muzika */
 function playMusic() {
 document.getElementById("bgMusic").play();
 }
 
-/* Hearts */
+/* Zemra */
 function createHeart() {
 const heart = document.createElement("div");
 heart.classList.add("falling-heart");
-heart.innerText = "❤️";
+heart.innerText = "💖";
 heart.style.left = Math.random() * 100 + "vw";
 heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
 document.body.appendChild(heart);
