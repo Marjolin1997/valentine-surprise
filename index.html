@@ -13,7 +13,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Cinematic moving lights */
+/* Cinematic moving light */
 body::before {
     content: "";
     position: fixed;
@@ -35,16 +35,12 @@ body::before {
     min-height: 100vh;
 }
 
-/* Quiz Section */
+/* Quiz */
 .quiz {
     width: 30%;
     padding: 40px;
     background: rgba(0,0,0,0.5);
     backdrop-filter: blur(10px);
-}
-
-.quiz h2 {
-    margin-bottom: 20px;
 }
 
 .quiz button {
@@ -58,12 +54,9 @@ body::before {
     cursor: pointer;
     transition: 0.3s;
 }
+.quiz button:hover { transform: scale(1.1); }
 
-.quiz button:hover {
-    transform: scale(1.1);
-}
-
-/* Main Section */
+/* Main */
 .main {
     width: 70%;
     display: flex;
@@ -99,10 +92,7 @@ button.main-btn {
     cursor: pointer;
     transition: 0.3s;
 }
-
-button.main-btn:hover {
-    transform: scale(1.1);
-}
+button.main-btn:hover { transform: scale(1.1); }
 
 /* Fade Proposal Screen */
 .fade-screen {
@@ -121,22 +111,15 @@ button.main-btn:hover {
     transition: opacity 2s ease;
     z-index:100;
 }
-
 .fade-screen.show {
     opacity:1;
     visibility:visible;
-}
-
-.fade-screen h1 {
-    font-size:32px;
-    margin-bottom:20px;
 }
 
 .ring {
     font-size:60px;
     animation: ringPulse 1.5s infinite;
 }
-
 @keyframes ringPulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.3); }
@@ -151,12 +134,11 @@ button.main-btn:hover {
     top: 0;
     animation: fall linear forwards;
 }
-
 @keyframes fall {
     to { transform: translateY(100vh) rotate(360deg); }
 }
 
-/* Mini hearts animation */
+/* Mini hearts */
 @keyframes fadeOut {
     0% { opacity:1; transform:scale(1); }
     100% { opacity:0; transform:scale(2); }
@@ -190,17 +172,23 @@ button.main-btn:hover {
     <div class="card">
         <div class="glow">Lulushka ❤️</div>
         <p>Maiolushka ka një pyetje përfundimtare...</p>
-
         <button class="main-btn" onclick="playMusic()">🎵 Luaj muzikën</button>
     </div>
 </div>
 
 </div>
 
-<!-- Proposal Screen -->
+<!-- Proposal -->
 <div class="fade-screen" id="proposal">
     <h1>Will you build our future in Germany with me? 🇩🇪❤️</h1>
     <div class="ring">💍</div>
+
+    <div style="margin-top:30px;">
+        <button class="main-btn" onclick="sayYes()">YES ❤️</button>
+        <button class="main-btn" id="noBtn">NO 😄</button>
+    </div>
+
+    <div id="finalMessage" style="margin-top:30px; font-size:22px;"></div>
 </div>
 
 <script>
@@ -216,8 +204,6 @@ function checkAnswer(isCorrect, btn) {
         correctAnswers++;
         btn.style.background = "#00cc88";
         btn.innerHTML = "WIN 💖";
-        btn.style.transform = "scale(1.2)";
-        setTimeout(() => btn.style.transform = "scale(1)", 300);
     } else {
         btn.style.background = "#aa0033";
         btn.innerHTML = "Provo sërish 😄";
@@ -227,12 +213,10 @@ function checkAnswer(isCorrect, btn) {
         document.getElementById("quizResult").innerHTML =
             "<div style='font-size:24px; color:#ff80bf; text-shadow:0 0 10px #ff2e63;'>LOVE YOU LULUSHKA ❤️</div>";
         launchConfetti();
-        launchMiniHearts();
         setTimeout(showProposal, 2500);
     }
 }
 
-/* Confetti */
 function launchConfetti() {
     for(let i=0;i<100;i++){
         const conf = document.createElement("div");
@@ -245,27 +229,24 @@ function launchConfetti() {
     }
 }
 
-/* Mini hearts */
-function launchMiniHearts() {
-    for (let i = 0; i < 30; i++) {
-        const heart = document.createElement("div");
-        heart.innerText = "💖";
-        heart.style.position = "fixed";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.top = Math.random() * 100 + "vh";
-        heart.style.fontSize = "20px";
-        heart.style.animation = "fadeOut 1.5s forwards";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 1500);
-    }
-}
-
-/* Proposal */
 function showProposal(){
     document.getElementById("proposal").classList.add("show");
 }
 
-/* Music */
+function sayYes() {
+    document.getElementById("finalMessage").innerHTML =
+        "<div style='font-size:28px; color:#ff80bf; text-shadow:0 0 15px #ff2e63;'>Lulushka ime te dua pafund ❤️</div>";
+}
+
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", function() {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
 function playMusic(){
     window.open("https://www.youtube.com/watch?v=mVbfIl56C5Y&list=RDmVbfIl56C5Y&start_radio=1","_blank");
 }
