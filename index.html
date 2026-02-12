@@ -2,194 +2,264 @@
 <html lang="sq">
 <head>
 <meta charset="UTF-8">
-<title>Lulushka & Maiolushka 💖</title>
+<title>Lulushka 💍</title>
 
 <style>
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #ff9ecf, #ffc1e3, #ffb6d9);
+    background: radial-gradient(circle at 30% 40%, #4a0033, #1a0011 70%);
     color: white;
-    text-align: center;
     overflow-x: hidden;
 }
 
-/* Cute puppies anash */
-.side-img {
+/* Moving cinematic lights */
+body::before {
+    content: "";
     position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 120px;
-    opacity: 0.9;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,0,128,0.15) 0%, transparent 60%);
+    animation: moveBg 20s linear infinite;
+    z-index: -1;
 }
 
-.left-dog {
-    left: 10px;
+@keyframes moveBg {
+    0% { transform: translate(-20%, -20%); }
+    50% { transform: translate(20%, 20%); }
+    100% { transform: translate(-20%, -20%); }
 }
 
-.right-dog {
-    right: 10px;
+/* Layout */
+.container {
+    display: flex;
+    min-height: 100vh;
 }
 
-/* Kartë romantike */
-.card {
-    margin-top: 80px;
-    background: rgba(255,255,255,0.2);
-    backdrop-filter: blur(10px);
+/* Quiz */
+.quiz {
+    width: 30%;
     padding: 40px;
-    border-radius: 25px;
-    width: 80%;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
 }
 
-h1 {
-    font-size: 36px;
-}
-
-button {
-    margin: 10px;
-    padding: 12px 25px;
+.quiz button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 20px;
     border: none;
-    border-radius: 30px;
-    font-size: 16px;
+    background: #ff2e63;
+    color: white;
     cursor: pointer;
-    background: white;
-    color: #ff2e63;
     transition: 0.3s;
 }
 
-button:hover {
+.quiz button:hover {
     transform: scale(1.1);
 }
 
-.countdown {
-    font-size: 20px;
-    margin-top: 15px;
+/* Main */
+.main {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.message {
-    margin-top: 20px;
-    font-size: 18px;
-    white-space: pre-line;
+.card {
+    background: rgba(255,255,255,0.08);
+    padding: 50px;
+    border-radius: 25px;
+    backdrop-filter: blur(15px);
+    text-align: center;
+    max-width: 700px;
 }
 
-/* Zemra që bien */
-.falling-heart {
+/* Glow name */
+.glow {
+    font-size: 42px;
+    color: #ff80bf;
+    text-shadow: 0 0 10px #ff2e63,
+                 0 0 20px #ff2e63,
+                 0 0 40px #ff2e63;
+}
+
+/* Buttons */
+button.main-btn {
+    margin: 10px;
+    padding: 12px 25px;
+    border-radius: 30px;
+    border: none;
+    background: #ff2e63;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button.main-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Fade screen */
+.fade-screen {
     position: fixed;
-    top: -10px;
-    font-size: 20px;
-    animation: fall linear infinite;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    opacity:0;
+    visibility:hidden;
+    transition: opacity 2s ease;
+    z-index:100;
+}
+
+.fade-screen.show {
+    opacity:1;
+    visibility:visible;
+}
+
+.fade-screen h1 {
+    font-size:32px;
+    margin-bottom:20px;
+}
+
+/* Ring animation */
+.ring {
+    font-size:60px;
+    animation: ringPulse 1.5s infinite;
+}
+
+@keyframes ringPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+/* Confetti */
+.confetti {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: pink;
+    top: 0;
+    animation: fall linear forwards;
 }
 
 @keyframes fall {
-    to { transform: translateY(100vh); }
+    to { transform: translateY(100vh) rotate(360deg); }
+}
+
+/* Hearts */
+.falling-heart {
+    position: fixed;
+    top: -10px;
+    font-size: 18px;
+    animation: fall linear infinite;
+    opacity: 0.7;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Cute puppies -->
-<img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/dog-2785074_960_720.png" class="side-img left-dog">
-<img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/dog-2785074_960_720.png" class="side-img right-dog">
+<div class="container">
 
-<div class="card">
-    <h1>Lulushka & Maiolushka 💖</h1>
-    <p>Numërimi mbrapsht deri në ëndrrën tonë 🇩🇪</p>
+<div class="quiz">
+    <h2>💘 Quiz për Lulushkën</h2>
 
-    <div class="countdown" id="countdown"></div>
+    <p>1️⃣ Kush është shtëpia ime?</p>
+    <button onclick="answer(true)">Lulushka</button>
+    <button onclick="answer(false)">Frankfurt</button>
 
-    <button onclick="showPoem()">📖 Lexo poezinë</button>
-    <button onclick="futureDream()">🇩🇪 Ëndrra jonë</button>
-    <button onclick="playMusic()">🎵 Luaj muzikën</button>
+    <p>2️⃣ Ku dua të ndërtoj jetën?</p>
+    <button onclick="answer(true)">Gjermani me ty 🇩🇪</button>
+    <button onclick="answer(false)">Vetëm</button>
 
-    <div class="message" id="message"></div>
+    <p>3️⃣ Kush fiton zemrën time?</p>
+    <button onclick="answer(true)">Ti ❤️</button>
+    <button onclick="answer(false)">Askush tjetër</button>
+
+    <div id="score"></div>
 </div>
 
-<audio id="bgMusic" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5e9987b0d4.mp3?filename=romantic-piano-110624.mp3" type="audio/mp3">
-</audio>
+<div class="main">
+    <div class="card">
+        <div class="glow">Lulushka ❤️</div>
+        <p>Maiolushka ka një pyetje përfundimtare...</p>
+
+        <button class="main-btn" onclick="playMusic()">🎵 Luaj muzikën</button>
+    </div>
+</div>
+
+</div>
+
+<!-- Final Proposal Screen -->
+<div class="fade-screen" id="proposal">
+    <h1>Will you build our future in Germany with me? 🇩🇪❤️</h1>
+    <div class="ring">💍</div>
+</div>
 
 <script>
 
-/* Countdown */
-const targetDate = new Date("2026-05-01T00:00:00");
+let score = 0;
+let answered = 0;
 
-function updateCountdown() {
-    const now = new Date();
-    const diff = targetDate - now;
+function answer(correct) {
+    answered++;
+    if(correct) score++;
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / 1000 / 60) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    document.getElementById("countdown").innerHTML =
-        `${days} ditë ${hours} orë ${minutes} minuta ${seconds} sekonda`;
-}
-setInterval(updateCountdown, 1000);
-
-/* Poezia */
-function showPoem() {
-const poem = 
-`Lulushka ime 💖
-
-Ti je drita ime në çdo mëngjes,
-je ëndrra që më buzëqesh çdo mbrëmje.
-
-Në çdo vend ku shkoj,
-dua vetëm dorën tënde në timen.
-
-Frankfurti mund të jetë fillimi,
-por ti je gjithmonë shtëpia ime.
-
-Maiolushka ❤️`;
-
-typeWriter(poem);
-}
-
-function futureDream() {
-document.getElementById("message").innerText =
-"Një ditë do ecim bashkë në Frankfurt 🇩🇪\n" +
-"Do ndërtojmë jetën tonë me dashuri,\n" +
-"dhe çdo sakrificë do ketë kuptim,\n" +
-"sepse jemi bashkë përgjithmonë 💖";
-}
-
-function typeWriter(text) {
-const element = document.getElementById("message");
-element.innerHTML = "";
-let i = 0;
-
-function typing() {
-    if (i < text.length) {
-        element.innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typing, 30);
+    if(answered === 3) {
+        if(score === 3) {
+            launchConfetti();
+            setTimeout(showProposal, 2000);
+            document.getElementById("score").innerHTML = "You Win My Heart ❤️🏆";
+        } else {
+            document.getElementById("score").innerHTML = "Provo sërish 😄";
+        }
     }
 }
-typing();
+
+/* Confetti */
+function launchConfetti() {
+    for(let i=0;i<100;i++){
+        const conf = document.createElement("div");
+        conf.classList.add("confetti");
+        conf.style.left = Math.random()*100+"vw";
+        conf.style.background = `hsl(${Math.random()*360},100%,70%)`;
+        conf.style.animationDuration = (Math.random()*3+2)+"s";
+        document.body.appendChild(conf);
+        setTimeout(()=>conf.remove(),5000);
+    }
 }
 
-/* Muzika */
-function playMusic() {
-document.getElementById("bgMusic").play();
+/* Show proposal */
+function showProposal(){
+    document.getElementById("proposal").classList.add("show");
 }
 
-/* Zemra */
-function createHeart() {
-const heart = document.createElement("div");
-heart.classList.add("falling-heart");
-heart.innerText = "💖";
-heart.style.left = Math.random() * 100 + "vw";
-heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-document.body.appendChild(heart);
-setTimeout(() => heart.remove(), 5000);
+/* Music */
+function playMusic(){
+    window.open("https://www.youtube.com/watch?v=mVbfIl56C5Y&list=RDmVbfIl56C5Y&start_radio=1","_blank");
 }
-setInterval(createHeart, 400);
+
+/* Hearts */
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.classList.add("falling-heart");
+    heart.innerText="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(Math.random()*4+3)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,500);
 
 </script>
 
