@@ -2,7 +2,7 @@
 <html lang="sq">
 <head>
 <meta charset="UTF-8">
-<title>Love Story – Germany Edition ❤️🇩🇪</title>
+<title>Lulushka & Maiolushka ❤️🇩🇪</title>
 
 <style>
 body {
@@ -34,14 +34,39 @@ h1 {
     font-size: 40px;
 }
 
+button {
+    margin: 10px;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: white;
+    color: #ff2e63;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
 .countdown {
-    font-size: 24px;
+    font-size: 22px;
     margin-top: 20px;
+}
+
+.message {
+    margin-top: 20px;
+    font-size: 20px;
+    max-width: 600px;
+    white-space: pre-line;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Slideshow */
 .slideshow {
-    margin-top: 50px;
+    margin-top: 60px;
     height: 400px;
     position: relative;
 }
@@ -80,18 +105,7 @@ h1 {
     to { left: 70%; }
 }
 
-button {
-    margin-top: 30px;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 30px;
-    font-size: 18px;
-    cursor: pointer;
-    background: white;
-    color: #ff2e63;
-}
-
-/* Zemra */
+/* Falling hearts */
 .falling-heart {
     position: fixed;
     top: -10px;
@@ -112,7 +126,12 @@ button {
         <h1>Lulushka & Maiolushka ❤️</h1>
         <p>Numërimi mbrapsht deri në ëndrrën tonë 🇩🇪</p>
         <div class="countdown" id="countdown"></div>
+
+        <button onclick="showPoem()">📖 Lexo poezinë</button>
+        <button onclick="futureDream()">🇩🇪 Ëndrra jonë</button>
         <button onclick="playMusic()">🎵 Luaj muzikën</button>
+
+        <div class="message" id="message"></div>
     </div>
 </div>
 
@@ -123,7 +142,7 @@ button {
     <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80" class="slide">
 </div>
 
-<!-- Map Section -->
+<!-- Map -->
 <div class="map-section">
     <h2>Rruga jonë drejt Frankfurt 🇩🇪</h2>
     <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Europe_blank_map.png" class="map">
@@ -151,37 +170,74 @@ function updateCountdown() {
     document.getElementById("countdown").innerHTML =
         `${days} ditë ${hours} orë ${minutes} minuta ${seconds} sekonda`;
 }
-
 setInterval(updateCountdown, 1000);
+
+/* Poezia */
+function showPoem() {
+const poem = 
+`Lulushka ime e dashur,
+
+Ti je drita ime në çdo horizont.
+Në çdo qytet, në çdo vend,
+unë dua vetëm dorën tënde.
+
+Frankfurti mund të jetë fillimi,
+por ti je gjithmonë destinacioni.
+
+Maiolushka ❤️`;
+
+typeWriter(poem);
+}
+
+function futureDream() {
+document.getElementById("message").innerText =
+"Një ditë do ecim bashkë në Frankfurt 🇩🇪\n" +
+"Do ndërtojmë jetën tonë me dashuri,\n" +
+"dhe çdo sakrificë do ketë kuptim,\n" +
+"sepse jemi bashkë ❤️";
+}
+
+function typeWriter(text) {
+const element = document.getElementById("message");
+element.innerHTML = "";
+let i = 0;
+
+function typing() {
+    if (i < text.length) {
+        element.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typing, 30);
+    }
+}
+typing();
+}
 
 /* Slideshow */
 let slides = document.querySelectorAll(".slide");
 let current = 0;
 
 function showSlide() {
-    slides.forEach(slide => slide.style.opacity = 0);
-    slides[current].style.opacity = 1;
-    current = (current + 1) % slides.length;
+slides.forEach(slide => slide.style.opacity = 0);
+slides[current].style.opacity = 1;
+current = (current + 1) % slides.length;
 }
-
 setInterval(showSlide, 4000);
 showSlide();
 
 /* Music */
 function playMusic() {
-    document.getElementById("bgMusic").play();
+document.getElementById("bgMusic").play();
 }
 
-/* Falling hearts */
+/* Hearts */
 function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("falling-heart");
-    heart.innerText = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 5000);
+const heart = document.createElement("div");
+heart.classList.add("falling-heart");
+heart.innerText = "❤️";
+heart.style.left = Math.random() * 100 + "vw";
+heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+document.body.appendChild(heart);
+setTimeout(() => heart.remove(), 5000);
 }
 setInterval(createHeart, 400);
 
