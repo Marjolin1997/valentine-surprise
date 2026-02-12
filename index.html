@@ -13,7 +13,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Moving cinematic lights */
+/* Cinematic moving lights */
 body::before {
     content: "";
     position: fixed;
@@ -23,7 +23,6 @@ body::before {
     animation: moveBg 20s linear infinite;
     z-index: -1;
 }
-
 @keyframes moveBg {
     0% { transform: translate(-20%, -20%); }
     50% { transform: translate(20%, 20%); }
@@ -36,12 +35,16 @@ body::before {
     min-height: 100vh;
 }
 
-/* Quiz */
+/* Quiz Section */
 .quiz {
     width: 30%;
     padding: 40px;
     background: rgba(0,0,0,0.5);
     backdrop-filter: blur(10px);
+}
+
+.quiz h2 {
+    margin-bottom: 20px;
 }
 
 .quiz button {
@@ -60,7 +63,7 @@ body::before {
     transform: scale(1.1);
 }
 
-/* Main */
+/* Main Section */
 .main {
     width: 70%;
     display: flex;
@@ -77,7 +80,6 @@ body::before {
     max-width: 700px;
 }
 
-/* Glow name */
 .glow {
     font-size: 42px;
     color: #ff80bf;
@@ -88,7 +90,7 @@ body::before {
 
 /* Buttons */
 button.main-btn {
-    margin: 10px;
+    margin-top: 20px;
     padding: 12px 25px;
     border-radius: 30px;
     border: none;
@@ -102,7 +104,7 @@ button.main-btn:hover {
     transform: scale(1.1);
 }
 
-/* Fade screen */
+/* Fade Proposal Screen */
 .fade-screen {
     position: fixed;
     top:0;
@@ -130,7 +132,6 @@ button.main-btn:hover {
     margin-bottom:20px;
 }
 
-/* Ring animation */
 .ring {
     font-size:60px;
     animation: ringPulse 1.5s infinite;
@@ -147,7 +148,6 @@ button.main-btn:hover {
     position: fixed;
     width: 8px;
     height: 8px;
-    background: pink;
     top: 0;
     animation: fall linear forwards;
 }
@@ -156,13 +156,10 @@ button.main-btn:hover {
     to { transform: translateY(100vh) rotate(360deg); }
 }
 
-/* Hearts */
-.falling-heart {
-    position: fixed;
-    top: -10px;
-    font-size: 18px;
-    animation: fall linear infinite;
-    opacity: 0.7;
+/* Mini hearts animation */
+@keyframes fadeOut {
+    0% { opacity:1; transform:scale(1); }
+    100% { opacity:0; transform:scale(2); }
 }
 </style>
 </head>
@@ -175,18 +172,18 @@ button.main-btn:hover {
     <h2>💘 Quiz për Lulushkën</h2>
 
     <p>1️⃣ Kush është shtëpia ime?</p>
-    <button onclick="answer(true)">Lulushka</button>
-    <button onclick="answer(false)">Frankfurt</button>
+    <button onclick="checkAnswer(true,this)">Lulushka</button>
+    <button onclick="checkAnswer(false,this)">Frankfurt</button>
 
     <p>2️⃣ Ku dua të ndërtoj jetën?</p>
-    <button onclick="answer(true)">Gjermani me ty 🇩🇪</button>
-    <button onclick="answer(false)">Vetëm</button>
+    <button onclick="checkAnswer(true,this)">Gjermani me ty 🇩🇪</button>
+    <button onclick="checkAnswer(false,this)">Vetëm</button>
 
     <p>3️⃣ Kush fiton zemrën time?</p>
-    <button onclick="answer(true)">Ti ❤️</button>
-    <button onclick="answer(false)">Askush tjetër</button>
+    <button onclick="checkAnswer(true,this)">Ti ❤️</button>
+    <button onclick="checkAnswer(false,this)">Askush tjetër</button>
 
-    <div id="score"></div>
+    <div id="quizResult" style="margin-top:20px; font-size:18px;"></div>
 </div>
 
 <div class="main">
@@ -200,7 +197,7 @@ button.main-btn:hover {
 
 </div>
 
-<!-- Final Proposal Screen -->
+<!-- Proposal Screen -->
 <div class="fade-screen" id="proposal">
     <h1>Will you build our future in Germany with me? 🇩🇪❤️</h1>
     <div class="ring">💍</div>
@@ -208,21 +205,30 @@ button.main-btn:hover {
 
 <script>
 
-let score = 0;
-let answered = 0;
+let correctAnswers = 0;
 
-function answer(correct) {
-    answered++;
-    if(correct) score++;
+function checkAnswer(isCorrect, btn) {
 
-    if(answered === 3) {
-        if(score === 3) {
-            launchConfetti();
-            setTimeout(showProposal, 2000);
-            document.getElementById("score").innerHTML = "You Win My Heart ❤️🏆";
-        } else {
-            document.getElementById("score").innerHTML = "Provo sërish 😄";
-        }
+    if (btn.classList.contains("answered")) return;
+    btn.classList.add("answered");
+
+    if (isCorrect) {
+        correctAnswers++;
+        btn.style.background = "#00cc88";
+        btn.innerHTML = "WIN 💖";
+        btn.style.transform = "scale(1.2)";
+        setTimeout(() => btn.style.transform = "scale(1)", 300);
+    } else {
+        btn.style.background = "#aa0033";
+        btn.innerHTML = "Provo sërish 😄";
+    }
+
+    if (correctAnswers === 3) {
+        document.getElementById("quizResult").innerHTML =
+            "<div style='font-size:24px; color:#ff80bf; text-shadow:0 0 10px #ff2e63;'>LOVE YOU LULUSHKA ❤️</div>";
+        launchConfetti();
+        launchMiniHearts();
+        setTimeout(showProposal, 2500);
     }
 }
 
@@ -239,7 +245,22 @@ function launchConfetti() {
     }
 }
 
-/* Show proposal */
+/* Mini hearts */
+function launchMiniHearts() {
+    for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.innerText = "💖";
+        heart.style.position = "fixed";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = Math.random() * 100 + "vh";
+        heart.style.fontSize = "20px";
+        heart.style.animation = "fadeOut 1.5s forwards";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1500);
+    }
+}
+
+/* Proposal */
 function showProposal(){
     document.getElementById("proposal").classList.add("show");
 }
@@ -248,18 +269,6 @@ function showProposal(){
 function playMusic(){
     window.open("https://www.youtube.com/watch?v=mVbfIl56C5Y&list=RDmVbfIl56C5Y&start_radio=1","_blank");
 }
-
-/* Hearts */
-function createHeart(){
-    const heart=document.createElement("div");
-    heart.classList.add("falling-heart");
-    heart.innerText="💖";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.animationDuration=(Math.random()*4+3)+"s";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),6000);
-}
-setInterval(createHeart,500);
 
 </script>
 
